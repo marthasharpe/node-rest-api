@@ -21,7 +21,7 @@ router.get('/:productID', (req, res, next) => {
             id: id
         });
     } else {
-        res.status(200).json({
+        res.status(201).json({
             message: 'You passed an ID'
         })
     }
