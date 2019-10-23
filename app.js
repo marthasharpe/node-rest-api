@@ -6,6 +6,8 @@ const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders')
 
 app.use(morgan('dev'));
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 
 //Reoutes to handle requests
 app.use('/products', productRoutes);
