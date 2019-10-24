@@ -17,25 +17,35 @@ router.post('/', (req, res, next) => {
         price: req.body.price
     });
     //store in the database
-    product.save().then(result => console.log(result)).catch(error => console.log(error));
-    res.status(200).json({
-        message: 'Handling POST requests to /products',
-        createdProduct: product
-    });
+    product.save()
+        .then(result => {
+            console.log(result)
+            res.status(201).json({
+                message: 'Handling POST requests to /products',
+                createdProduct: product
+            });
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(500).json({
+                error: err
+            })
+        });
+
 });
 
 router.get('/:productID', (req, res, next) => {
     const id = req.params.productID;
-    if (id === 'special') {
-        res.status(200).json({
-            message: 'You discovered the special ID',
-            id: id
-        });
-    } else {
-        res.status(201).json({
-            message: 'You passed an ID'
+    Product.findById(id)
+        .exec()
+        .then(doc => {
+            console.log(doc);
+            res.status(200).json(doc);
         })
-    }
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({error: err});
+        });
 });
 
 router.patch('/:productID', (req, res, next) => {
