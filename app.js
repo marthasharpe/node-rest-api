@@ -1,9 +1,12 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders')
+
+mongoose.connect('mongodb+srv://MarthaSharpe:' + process.env.MONGO_ATLAS_PASSWORD + '@cluster0-kkijr.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
